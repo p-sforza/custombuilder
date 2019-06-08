@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "build.sh start!"
 set -e
 set -o pipefail
 
@@ -35,6 +35,7 @@ fi
 #EOF
 
 # Create the package
+
 mkdir -p /tmp/build && cd /tmp/build
 #git clone https://github.com/p-sforza/golang-ex.git
 git clone $SOURCE_URI $HOME
@@ -44,7 +45,7 @@ go build go-run
 # Create the docker file
 cat > Dockerfile <<- EOF
 FROM openshift/origin-base 
-COPY go-run $HOME
+COPY go-run $HOME/go-run
 CMD  $HOME/go-run
 EOF
 
