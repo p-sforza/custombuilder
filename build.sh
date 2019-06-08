@@ -39,21 +39,21 @@ fi
 #mkdir -p /tmp/build && cd /tmp/build
 #git clone https://github.com/p-sforza/golang-ex.git
 
-echo "git repo cloning start!\n"
+echo "git repo cloning start!"
 git clone $SOURCE_URI /tmp/src
 
-echo "go build start!\n"
+echo "go build start!"
 cd /tmp/src
 go build -o go-run
 
 # Create the docker file
-echo "Dockerfile prepare!\n"
+echo "Dockerfile prepare!"
 cat > Dockerfile <<- EOF
 FROM openshift/origin-base 
 COPY go-run $HOME/go-run
 CMD  $HOME/go-run
 EOF
 
-echo "Docker build start!\n"
+echo "Docker build start!"
 docker build --rm -t "${TAG}" .
 docker push "${TAG}"
