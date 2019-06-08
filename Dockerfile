@@ -34,4 +34,8 @@ RUN INSTALL_PKGS="gettext automake make docker golang" && \
 # RUN chown -R 1001:0 $STI_SCRIPTS_PATH && chown -R 1001:0 /opt/app-root
 
 COPY build.sh /tmp/build.sh
+RUN  chmod +x /tmp/build.sh && \
+     chown -R 1001:0 /tmp/build.sh && \
+     chmod -R g+rw   /tmp/build.sh
+
 CMD ["/tmp/build.sh"]

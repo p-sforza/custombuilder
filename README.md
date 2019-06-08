@@ -1,19 +1,25 @@
 # Golang Custom Builder
 The golang custom builder is golang builder for OpenShift
 
-To build the custom builder on OCP
+1. To build the custom builder on OCP
 ```
  oc new-build https://github.com/p-sforza/custombuilder
 ```
 This will create the builder image that we will use to compile go code and create target image with binary injected
 
-
+2. Create the target go image build-config using the created builder (note that you need to be system admin to create a custom build strategy or enable the role system:build-strategy-custom to the user)
+```
+oc adm policy add-cluster-role-to-user system:build-strategy-custom developer
+oc apply -f buildconfig.yaml
+```
 
 # Outside OpenShift
 On your docker platform you can 
 
 1. build the builder image:
 ```
+git clone https://github.com/p-sforza/custombuilder
+cd custombuilder
 docker build . --file Dockerfile --tag go-custom-docker-builder
 ```
 2. run builder to test or debug your code (note that docker.sock needed for docker ops within the builder):

@@ -2,10 +2,10 @@
     "kind": "BuildConfig",
     "apiVersion": "v1",
     "metadata": {
-        "name": "go-sample-build",
+        "name": "golang-ex",
         "creationTimestamp": null,
         "labels": {
-            "name": "go-sample-build"
+            "name": "golang-ex"
         }
     },
     "spec": {
@@ -21,13 +21,12 @@
             "customStrategy": {
 		"from": {
 		    "kind": "DockerImage",
-		    "name": "go-builder"
+		    "name": "172.30.1.1:5000/test/custombuilder"
 		},
 		"env": [
 		    {
 			"name": "OPENSHIFT_CUSTOM_BUILD_BASE_IMAGE",
-                        #"value": "docker.io/openshift/origin-custom-docker-builder"
-                        "value": "go-custom-docker-builder"
+                        "value": "openshift/xxxxxxxxxxx"
 		    }
 		],
 		"exposeDockerSocket": true,
