@@ -56,4 +56,7 @@ EOF
 
 echo "Docker build start!"
 docker build --rm -t "${TAG}" .
+export DOCKER_USR=serviceaccount
+export DOCKER_PWD=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+docker login -u $DOCKER_USR -p $DOCKER_PWD 172.30.1.1:5000
 docker push "${TAG}"
