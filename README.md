@@ -13,6 +13,10 @@ oc adm policy add-cluster-role-to-user system:build-strategy-custom developer
 oc apply -f buildconfig.yaml
 oc start-build golang-ex 
 ```
+3. Finally create the app 
+```
+oc create -f deploymentconfig.yaml
+```
 
 # Outside OpenShift
 On your docker platform you can 

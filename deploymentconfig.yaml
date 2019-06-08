@@ -1,0 +1,56 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+  generation: 2
+  labels:
+    app: golang-ex
+  name: golang-ex
+spec:
+  replicas: 1
+  selector:
+    app: golang-ex
+    deploymentconfig: golang-ex
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: golang-ex
+        deploymentconfig: golang-ex
+    spec:
+      containers:
+      - image: 172.30.1.1:5000/test/golang-ex
+        imagePullPolicy: Always
+        name: golang-ex
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - golang-ex
+      from:
+        kind: ImageStreamTag
+        name: golang-ex:latest
+        namespace: test
+    type: ImageChange
