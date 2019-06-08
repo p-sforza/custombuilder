@@ -36,15 +36,16 @@ fi
 
 # Create the package
 mkdir -p /tmp/build && cd /tmp/build
-git clone https://github.com/p-sforza/golang-ex.git
-cd golang-ex/
-go build
+#git clone https://github.com/p-sforza/golang-ex.git
+git clone $SOURCE_URI $HOME
+cd $HOME
+go build go-run
 
 # Create the docker file
 cat > Dockerfile <<- EOF
 FROM openshift/origin-base 
-COPY golang-ex $HOME
-CMD  $HOME/golang-ex
+COPY go-run $HOME
+CMD  $HOME/go-run
 EOF
 
 docker build --rm -t "${TAG}" .
