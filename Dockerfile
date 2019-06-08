@@ -1,4 +1,6 @@
-#FROM openshift/origin-base
+# Dockerfile to build the base for the go custombuilder
+# The build logic is into build.sh
+
 FROM registry.fedoraproject.org/f29/s2i-base:latest
 
 ENV NAME=golang \
@@ -29,11 +31,8 @@ RUN INSTALL_PKGS="gettext automake make docker golang" && \
     rpm -V $INSTALL_PKGS && \
     dnf clean all -y
 
-# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
-# COPY ./s2i/bin/ $STI_SCRIPTS_PATH
-# RUN chown -R 1001:0 $STI_SCRIPTS_PATH && chown -R 1001:0 /opt/app-root
-
 COPY build.sh /tmp/build.sh
+
 RUN  chmod +x /tmp/build.sh && \
      chown -R 1001:0 /tmp/build.sh && \
      chmod -R g+rw   /tmp/build.sh
