@@ -40,7 +40,7 @@ fi
 #git clone https://github.com/p-sforza/golang-ex.git
 git clone $SOURCE_URI /tmp/src
 cd /tmp/src
-go build go-run
+go build -o go-run
 
 # Create the docker file
 cat > Dockerfile <<- EOF
