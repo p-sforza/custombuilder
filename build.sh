@@ -36,10 +36,10 @@ fi
 
 # Create the package
 
-mkdir -p /tmp/build && cd /tmp/build
+#mkdir -p /tmp/build && cd /tmp/build
 #git clone https://github.com/p-sforza/golang-ex.git
-git clone $SOURCE_URI $HOME
-cd $HOME
+git clone $SOURCE_URI /tmp/src
+cd /tmp/src
 go build go-run
 
 # Create the docker file
